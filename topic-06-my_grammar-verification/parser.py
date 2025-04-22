@@ -337,16 +337,8 @@ def parse_expression(tokens):
     """
     expression = logical_expression
     """
-# --- Adding a statement for Kent ID ---    
-    node, tokens = parse_logical_expression(tokens)
-    if node["tag"] == "identifier" and tokens[0]["tag"] == "(":
-        tokens = tokens[1:]
-        assert tokens[0]["tag"] == ")", f"Expected ')', got {tokens[0]}"
-        tokens = tokens[1:]
-        node = {"tag": "dnam"}
-    
-    return node, tokens
-# --- --- --- --- --- --- --- --- --- ---  
+    return parse_logical_expression(tokens)
+
 
 def test_parse_expression():
     """
@@ -499,6 +491,7 @@ def parse_assignment_statement(tokens):
         tokens = tokens[1:]
         value, tokens = parse_expression(tokens)
         return {"tag": "assign", "target": target, "value": value}, tokens
+    
     return target, tokens
 
 def test_parse_assignment_statement():
@@ -528,6 +521,13 @@ def parse_statement(tokens):
         return parse_while_statement(tokens)
     if tag == "print":
         return parse_print_statement(tokens)
+
+    # --- Adding a statement for Kent ID ---
+    if tag == "identifier" and tokens[0]["value"] == "dnam":
+        tokens = tokens[1:]
+        return {"tag": "dnam"}, tokens
+    # --- --- --- --- --- --- --- --- --- --- 
+
     return parse_assignment_statement(tokens)
 
 def test_parse_statement():
