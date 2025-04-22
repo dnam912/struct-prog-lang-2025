@@ -332,13 +332,11 @@ def test_parse_logical_expression():
         },
     }
 
-
 def parse_expression(tokens):
     """
     expression = logical_expression
     """
     return parse_logical_expression(tokens)
-
 
 def test_parse_expression():
     """
@@ -358,13 +356,19 @@ def parse_statement_block(tokens):
     ast = {"tag": "block", "statements": []}
     assert tokens[0]["tag"] == "{", f"Expected '{{', got {tokens[0]}"
     tokens = tokens[1:]
+
     if tokens[0]["tag"] != "}":
         statement, tokens = parse_statement(tokens)
         ast["statements"].append(statement)
     while tokens[0]["tag"] == ";":
         tokens = tokens[1:]
+        #### Adding a statement for Kent ID
+        if tokens[0]["tag"] == "}":
+            break
+        #### 
         statement, tokens = parse_statement(tokens)
         ast["statements"].append(statement)
+        
     assert tokens[0]["tag"] == "}", f"Expected '}}', got {tokens[0]}"
     return ast, tokens[1:]
 
@@ -491,7 +495,6 @@ def parse_assignment_statement(tokens):
         tokens = tokens[1:]
         value, tokens = parse_expression(tokens)
         return {"tag": "assign", "target": target, "value": value}, tokens
-    
     return target, tokens
 
 def test_parse_assignment_statement():
@@ -521,12 +524,9 @@ def parse_statement(tokens):
         return parse_while_statement(tokens)
     if tag == "print":
         return parse_print_statement(tokens)
-
     # Adding a statement for Kent ID
-    if tag == "identifier" and tokens[0]["value"] == "dnam":
-        tokens = tokens[1:]
-        return {"tag": "dnam"}, tokens
-
+    if tag == "dnam":
+        return {"tag": "dnam"}, tokens[1:]
     return parse_assignment_statement(tokens)
 
 def test_parse_statement():
@@ -573,7 +573,6 @@ def test_parse_program():
 def parse(tokens):
     ast, tokens = parse_program(tokens)
     return ast
-
 
 # --- Grammar Verification Mechanism ---
 

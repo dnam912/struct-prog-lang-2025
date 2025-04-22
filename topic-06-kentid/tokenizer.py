@@ -2,6 +2,7 @@ import re
 
 # Define patterns for tokens
 patterns = [
+    [r"dnam", "dnam"], # Adding a statement for Kent ID
     [r"print","print"],
     [r"if","if"],
     [r"else","else"],

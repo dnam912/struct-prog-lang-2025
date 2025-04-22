@@ -100,10 +100,9 @@ def evaluate(ast, environment={}):
         right_value = evaluate(ast["right"], environment)
         return left_value != right_value
     
-    # Adding a statement for Kent ID
-    if ast["tag"] == "dnam"
-        email = "dnam@kent.edu"
-        environment["_kentid_"] = email
+    # Adding a statement for Kent id
+    if ast["tag"] == "dnam":
+        environment["_kentid_"] = "dnam@kent.edu"
         return None
 
 
