@@ -332,11 +332,21 @@ def test_parse_logical_expression():
         },
     }
 
+
 def parse_expression(tokens):
     """
     expression = logical_expression
     """
-    return parse_logical_expression(tokens)
+# --- Adding a statement for Kent ID ---    
+    node, tokens = parse_logical_expression(tokens)
+    if node["tag"] == "identifier" and tokens[0]["tag"] == "(":
+        tokens = tokens[1:]
+        assert tokens[0]["tag"] == ")", f"Expected ')', got {tokens[0]}"
+        tokens = tokens[1:]
+        node = {"tag": "dnam"}
+    
+    return node, tokens
+# --- --- --- --- --- --- --- --- --- ---  
 
 def test_parse_expression():
     """
@@ -564,6 +574,7 @@ def test_parse_program():
 def parse(tokens):
     ast, tokens = parse_program(tokens)
     return ast
+
 
 # --- Grammar Verification Mechanism ---
 
