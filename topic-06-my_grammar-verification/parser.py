@@ -522,11 +522,10 @@ def parse_statement(tokens):
     if tag == "print":
         return parse_print_statement(tokens)
 
-    # --- Adding a statement for Kent ID ---
+    # Adding a statement for Kent ID
     if tag == "identifier" and tokens[0]["value"] == "dnam":
         tokens = tokens[1:]
         return {"tag": "dnam"}, tokens
-    # --- --- --- --- --- --- --- --- --- --- 
 
     return parse_assignment_statement(tokens)
 
