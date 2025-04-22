@@ -99,6 +99,12 @@ def evaluate(ast, environment={}):
         left_value = evaluate(ast["left"], environment)
         right_value = evaluate(ast["right"], environment)
         return left_value != right_value
+    
+    # Adding a statement for Kent ID
+    if ast["tag"] == "dnam"
+        email = "dnam@kent.edu"
+        environment["_kentid_"] = email
+        return None
 
 
 def test_evaluate_number():
