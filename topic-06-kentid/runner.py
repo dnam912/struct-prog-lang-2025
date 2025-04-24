@@ -3,6 +3,7 @@ import parser
 import evaluator
 import sys
 
+
 def run(text):
     tokens = tokenizer.tokenize(text)
     ast = parser.parse(tokens)

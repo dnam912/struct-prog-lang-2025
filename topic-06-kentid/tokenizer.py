@@ -2,7 +2,9 @@ import re
 
 # Define patterns for tokens
 patterns = [
-    [r"dnam", "dnam"], # Adding a statement for Kent ID
+    # Adding a statement for Kent ID
+    [r"dnam", "dnam"], 
+    ####
     [r"print","print"],
     [r"if","if"],
     [r"else","else"],
@@ -154,3 +156,7 @@ if __name__ == "__main__":
     test_keywords()
     test_identifier_tokens()
     test_error()
+    
+    tokens = tokenize("dnam;")
+    print("== manual test dnam; ==")
+    print(tokens)

@@ -527,6 +527,7 @@ def parse_statement(tokens):
     # Adding a statement for Kent ID
     if tag == "dnam":
         return {"tag": "dnam"}, tokens[1:]
+    #### 
     return parse_assignment_statement(tokens)
 
 def test_parse_statement():
