@@ -156,7 +156,3 @@ if __name__ == "__main__":
     test_keywords()
     test_identifier_tokens()
     test_error()
-    
-    tokens = tokenize("dnam;")
-    print("== manual test dnam; ==")
-    print(tokens)
